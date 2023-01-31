@@ -59,7 +59,7 @@ Nous allons commencer par découper notre dataset en utilisant la fonction train
 # Classification Multiclass
 Nous allons commencer par réaliser utiliser deux approches one versus rest (OVR) et one versus one (OVO). Ces deux approches permettent d'approcher un problème multiclasse avec une classification binaire.
 
-![Matrice de confusion](/Images/matrix_conf.png "Matrice de confusion")
+![Matrice de confusion](/Images/matrix_confusion.png "Matrice de confusion")
 
 La matrice de confusion obtenue ci-dessus permet d'évaluer les performances d'un classement en comparant les valeurs prédites par le modèle aux valeurs réelles.
 
@@ -92,7 +92,7 @@ Sur le graphique ci-dessus, nous pouvons voir la fonction de perte représentée
 
 ## Modèle 3
 
-![RNN 3](/Images/lc3.png "Réseau de neurones 3")
+![RNN 3](/Images/keras3.png "Réseau de neurones 3")
 
 On a 481 paramètres dans ce réseau de neurones. La couche d'entrée contient 10 neurones, chacun de ses neurones est associé à nos feautures. On rajoute pour chaque neurone un terme de biais (ceci nous permet d'obtenir 470 paramètres). La couche de sortie contient 1 biais plus les 10 neurones de la couche précédente. Ceci nous permet de retrouver les 481 paramètres.
 
