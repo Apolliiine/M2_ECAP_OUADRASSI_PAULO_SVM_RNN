@@ -12,9 +12,9 @@ Source des données :https://www.kaggle.com/datasets/aguado/telemarketing-jyb-da
 
 ## Visualisation de notre variable à expliquer
 
-![Pie chart y](Images/piechart_y.png "Répârtition de la variable à expliquer")
+![Pie chart y](/Images/piechart_y.png "Répârtition de la variable à expliquer")
 
-![Pie chart y](Images/barplot_y.png "Répârtition de la variable à expliquer")
+![Bar plot y](/Images/barplot_y.png "Répârtition de la variable à expliquer")
 
 D'après ces représentations graphiques, nous constatons qu'environ 88% d'individus n'ont pas ouvert un compte bancaire avec l'institution bancaire portugais.
 
@@ -28,7 +28,38 @@ Nous constatons que trois de nos variables ont de valeurs atypiques(default, hou
 
 > Nous allons utiliser la corrélation de Spearman afin d'étudier les liens entre les variables explicatives.
 
-![Pie chart y](Images/corr_mat.png "Répartition de la variable à expliquer")
+![Matrice de corrélation](/Images/corr_mat.png "Matrice de corrélation")
+
+Cette matrice de corrélation représente uniquement les variables avec une forte corrélation ( supérieure ou égale au seuil de 0.65)
+
+Nous constatons qu'il existe trois variables fortement corrélées, avec une corrélation supérieure au seuil de 0.65.
+
+* cons.price.idx : indice des prix à la consommation ( Indicateur mensuel)
+* euribor3m : taux euribor 3 mois (indicateur journalier)
+* poutcome_failure : résultat de la campagne marketing précédente (catégoriel : 'échec', 'inexistant', 'succès')
+
+Nous avons fait le choix de supprimer ces trois variables.
+
+## Détection et traitement des outliers
+Nous allons commencer par visualiser grâce à des boxplots s'il y a des potentiels individus atypiques. Ensuite, nous allons vérifier avec ESD test et Grubbs test, si les observations avec des valeurs très différentes des autres observations détecté précédemment peuvent être considérées comme des individus atypiques ou non.
+
+![Boxplot age](/Images/corr_mat.png "Age")
+![Boxplot campaign](/Images/corr_mat.png "Campaign")
+![Boxplot pdays](/Images/corr_mat.png "Pdays")
+![Boxplot previous](/Images/corr_mat.png "Previous")
+
+Nous constatons qu'en supprimant les outliers nous réduisant notre échantillon de façon significative, en effet, on passe de 28645 à 597 observations. C'est pour cette raison nous avons fait le choix de conserver ces individus atypiques.
+
+De plus, nous constatons que certaines de ces observations ne sont pas considérées comme étant atypiques. Par exemple, le test ESD considère les individus avec plus de 85 ans comme étant atypique, or, il est normal que le comportement d'une personne âgée soit différent dans le fait d'ouvrir un compte bancaire.
+
+# **II-Classification**
+
+Nous allons commencer par découper notre dataset en utilisant la fonction train_test_split afin de diviser les données d'entraînement et de test en ensembles distincts afin de pouvoir entraîner et évaluer nos modèles.
+
+# Classification Multiclass
+Nous allons commencer par réaliser utiliser deux approches one versus rest (OVR) et one versus one (OVO). Ces deux approches permettent d'approcher un problème multiclasse avec une classification binaire.
+
+![Matrice de confusion](/Images/matrix_conf.png "Matrice de confusion")
 
 La matrice de confusion obtenue ci-dessus permet d'évaluer les performances d'un classement en comparant les valeurs prédites par le modèle aux valeurs réelles.
 
@@ -39,17 +70,17 @@ Dans cette matrice de prédiction, nous avons également des faux positives et f
 
 # Classification avec Keras
 
-![Pie chart y](Images/keras1.png "Répartition de la variable à expliquer")
+![RNN 1](/Images/keras1.png "Réseau de neurones 1")
 
 On a 4801 paramètres dans ce réseau de neurones. La couche d'entrée contient 100 neurones, chacun de ses neurones est associé à nos feautures. On rajoute pour chaque neurone un terme de biais (ceci nous permet d'obtenir 4700 paramètres). La couche de sortie contient 1 biais plus les 100 neurones de la couche précédente. Ceci nous permet de retrouver les 4801 paramètres.
 
 
-
-![Pie chart y](Images/keras2.png "Répartition de la variable à expliquer")
+![RNN 2](/Images/keras2.png "Réseau de neurones 2")
 
 On a 25001 paramètres dans ce réseau de neurones. La couche d'entrée contient 100 neurones, chacun de ses neurones est associé à nos features. On rajoute pour chaque neurone un terme de biais (ceci nous permet d'obtenir 4700 paramètres). Ce modèle est constitué de deux couches cachées qui contiennent également 100 neurones multipliés par les 100 neurones en entrée. La couche de sortie contient 1 biais plus les 100 neurones de la couche précédente. Ceci nous permet de retrouver les 25001 paramètres.
 
-![Pie chart y](Images/lc3.png "Répârtition de la variable à expliquer")
+![RNN 3](/Images/lc3.png "Réseau de neurones 3")
+
 Sur le graphique ci-dessus, nous pouvons voir la fonction de perte représentée en bleu et l'accuracy.
 Contrairemetn au auxtres modèles, la fonction de perte connait des augmentations et des baisses en fonction du nombe d'epochs. Elle ne diminue pas continuellement. L'accuracy est plutôt constante quelque soit le nombre d'epochs, malgré quelque légère hausses et baisses.
 
