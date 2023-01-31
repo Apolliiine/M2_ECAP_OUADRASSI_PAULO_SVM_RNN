@@ -43,10 +43,10 @@ Nous avons fait le choix de supprimer ces trois variables.
 ## Détection et traitement des outliers
 Nous allons commencer par visualiser grâce à des boxplots s'il y a des potentiels individus atypiques. Ensuite, nous allons vérifier avec ESD test et Grubbs test, si les observations avec des valeurs très différentes des autres observations détecté précédemment peuvent être considérées comme des individus atypiques ou non.
 
-![Boxplot age](/Images/corr_mat.png "Age")
-![Boxplot campaign](/Images/corr_mat.png "Campaign")
-![Boxplot pdays](/Images/corr_mat.png "Pdays")
-![Boxplot previous](/Images/corr_mat.png "Previous")
+![Boxplot age](/Images/boxplot.png "Age")
+![Boxplot campaign](/Images/boxplot_2.png "Campaign")
+![Boxplot pdays](/Images/boxplot_3.png "Pdays")
+![Boxplot previous](/Images/boxplot_4.png "Previous")
 
 Nous constatons qu'en supprimant les outliers nous réduisant notre échantillon de façon significative, en effet, on passe de 28645 à 597 observations. C'est pour cette raison nous avons fait le choix de conserver ces individus atypiques.
 
@@ -70,19 +70,36 @@ Dans cette matrice de prédiction, nous avons également des faux positives et f
 
 # Classification avec Keras
 
+## Modèle 1
+
 ![RNN 1](/Images/keras1.png "Réseau de neurones 1")
 
 On a 4801 paramètres dans ce réseau de neurones. La couche d'entrée contient 100 neurones, chacun de ses neurones est associé à nos feautures. On rajoute pour chaque neurone un terme de biais (ceci nous permet d'obtenir 4700 paramètres). La couche de sortie contient 1 biais plus les 100 neurones de la couche précédente. Ceci nous permet de retrouver les 4801 paramètres.
 
+![Learning curve 1](/Images/lc1.png "Learning curve 1")
+
+Sur le graphique ci-dessus, nous pouvons voir la fonction de perte représentée en bleu et l'accuracy. Lorsque le nombre d'epochs augmente, la fonction de perte diminue dans un premier temps rapidement, puis elle diminue plus lentement avant de remonter légèrment. L'accuracy est plutôt constante quelque soit le nombre d'epochs.
+
+## Modèle 2
 
 ![RNN 2](/Images/keras2.png "Réseau de neurones 2")
 
 On a 25001 paramètres dans ce réseau de neurones. La couche d'entrée contient 100 neurones, chacun de ses neurones est associé à nos features. On rajoute pour chaque neurone un terme de biais (ceci nous permet d'obtenir 4700 paramètres). Ce modèle est constitué de deux couches cachées qui contiennent également 100 neurones multipliés par les 100 neurones en entrée. La couche de sortie contient 1 biais plus les 100 neurones de la couche précédente. Ceci nous permet de retrouver les 25001 paramètres.
 
+![Learning curve 2](/Images/lc2.png "Learning curve 2")
+
+Sur le graphique ci-dessus, nous pouvons voir la fonction de perte représentée en bleu et l'accuracy. Lorsque le nombre d'epochs augmente, la fonction de perte chute rapidement puis se stabilise à parrir de 5 epochs. L'accuracy est plutôt constante quelque soit le nombre d'epochs.
+
+## Modèle 3
+
 ![RNN 3](/Images/lc3.png "Réseau de neurones 3")
 
+On a 481 paramètres dans ce réseau de neurones. La couche d'entrée contient 10 neurones, chacun de ses neurones est associé à nos feautures. On rajoute pour chaque neurone un terme de biais (ceci nous permet d'obtenir 470 paramètres). La couche de sortie contient 1 biais plus les 10 neurones de la couche précédente. Ceci nous permet de retrouver les 481 paramètres.
+
+![Learning curve 3](/Images/lc3.png "Learning curve 3")
+
 Sur le graphique ci-dessus, nous pouvons voir la fonction de perte représentée en bleu et l'accuracy.
-Contrairemetn au auxtres modèles, la fonction de perte connait des augmentations et des baisses en fonction du nombe d'epochs. Elle ne diminue pas continuellement. L'accuracy est plutôt constante quelque soit le nombre d'epochs, malgré quelque légère hausses et baisses.
+Contrairement au autres modèles, la fonction de perte connait des augmentations et des baisses en fonction du nombe d'epochs. Elle ne diminue pas continuellement. L'accuracy est plutôt constante quelque soit le nombre d'epochs, malgré quelque légère hausses et baisses.
 
 
 Pour terminer, nous avons utilisé la fonction accuracy afin de prédir l'efficacité de modèle. Nos modèles ont des prévisions efficace à 88.35%.
