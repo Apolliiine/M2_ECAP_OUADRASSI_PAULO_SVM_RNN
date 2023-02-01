@@ -44,8 +44,11 @@ Nous avons fait le choix de supprimer ces trois variables.
 Nous allons commencer par visualiser grâce à des boxplots s'il y a des potentiels individus atypiques. Ensuite, nous allons vérifier avec ESD test et Grubbs test, si les observations avec des valeurs très différentes des autres observations détecté précédemment peuvent être considérées comme des individus atypiques ou non.
 
 ![Boxplot age](/Images/boxplot.png "Age")
+
 ![Boxplot campaign](/Images/boxplot_2.png "Campaign")
+
 ![Boxplot pdays](/Images/boxplot_3.png "Pdays")
+
 ![Boxplot previous](/Images/boxplot_4.png "Previous")
 
 Nous constatons qu'en supprimant les outliers nous réduisant notre échantillon de façon significative, en effet, on passe de 28645 à 597 observations. C'est pour cette raison nous avons fait le choix de conserver ces individus atypiques.
